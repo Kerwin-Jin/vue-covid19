@@ -3,6 +3,7 @@
       <Header></Header>
       <Covid19Info :info="covid19Info"></Covid19Info>
       <CaseNum :num="covid19Info"></CaseNum>
+      <Map></Map>
   </div>
 </template>
 
@@ -11,6 +12,8 @@
 import Header from "@/components/Header"
 import Covid19Info from "@/components/Covid19Info"
 import CaseNum from "@/components/CaseNum"
+import Map from "@/components/Map"
+
 export default {
   name: 'Home',
   data(){
@@ -18,7 +21,7 @@ export default {
       covid19Info:{}
     }
   },
-  components:{Header,Covid19Info,CaseNum},
+  components:{Header,Covid19Info,CaseNum,Map},
   mounted(){
     this.getData();
   },
