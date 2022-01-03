@@ -17,7 +17,6 @@
 
 <script>
 export default {
-  name:"About",
   data(){
     return{
       currentIndex:"1"
@@ -25,6 +24,7 @@ export default {
   },
   methods:{
     changeCurrentIndex(index){
+        //index为tab的下标
       this.currentIndex = index;
     }
   }

@@ -18,7 +18,7 @@ export default {
   name: 'Home',
   data(){
     return{
-      covid19Info:{}
+      covid19Info:{},
     }
   },
   components:{Header,Covid19Info,CaseNum,Map},

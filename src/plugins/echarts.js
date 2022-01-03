@@ -42,6 +42,16 @@ export default {
                             return "<div><p>"+data.name+"<p><p>现存确诊："+data.value+"</p></div>"
                         }
                     },
+                    visualMap:[{
+                        origin:"vertical",
+                        type:"piecewise",
+                        pieces:[
+                            {min:0,max:0,color:"#FFFFFF"},
+                            {min:0,max:10,color:"#FDFDCF"},
+                            {min:10,max:100,color:"#FE9E83"},
+                            {min:100,max:500,color:"#E55A4E"}
+                        ]
+                    }],
                     series: [{
                         name: '省',
                         type: 'map',
@@ -85,7 +95,12 @@ export default {
                 let options = {
                     geo:{
                         map:"world"
-                    }
+                    },
+                    series:[{
+                        type:"map",
+                        zoom:1.2,
+                        roam:false
+                    }]
                 }
 
                 worldChart.setOption(options);

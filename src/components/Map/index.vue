@@ -1,7 +1,15 @@
 <template>
   <div id="map-container">
       <h2>疫情地图</h2>
-      <div id="map"></div>
+      <Tabs :currentIndex="currentIndex" @change="changeCurrentIndex">
+        <TabHeader label="国内疫情" index="1">
+            <div id="chinaMap"></div>
+        </TabHeader>
+        <TabHeader label="国外疫情" index="2">
+            <div id="worldMap"></div>
+        </TabHeader>
+      </Tabs>
+
   </div>
 </template>
 
@@ -10,12 +18,16 @@ export default {
     name:"Map",
     data(){
         return{
-            cityData:[]
+            cityData:[],
+            currentIndex:"1"
         }
     },
     mounted(){
         this.getData();
-        this.$echarts.chinaMap("map",this.cityData);
+        this.$nextTick(()=>{
+            this.$echarts.chinaMap("chinaMap",this.cityData);
+            this.$echarts.worldMap("worldMap");
+        })
     },
     methods:{
         getData(){
@@ -23,32 +35,16 @@ export default {
             // console.log(res);
             // 接口暂时无法使用，下面为模拟数据
             this.cityData = [
-                {name:"内蒙古",value:32,itemStyle:{normal:{areaColor:this.setColor(32)}}},
-                {name:"湖北",value:132,itemStyle:{normal:{areaColor:this.setColor(132)}}},
-                {name:"湖南",value:8,itemStyle:{normal:{areaColor:this.setColor(8)}}},
-                {name:"陕西",value:200,itemStyle:{normal:{areaColor:this.setColor(200)}}},
-                {name:"北京",value:123,itemStyle:{normal:{areaColor:this.setColor(123)}}},
-                {name:"广东",value:80,itemStyle:{normal:{areaColor:this.setColor(80)}}}
+                {name:"内蒙古",value:32},
+                {name:"湖北",value:132},
+                {name:"湖南",value:8},
+                {name:"陕西",value:200},
+                {name:"北京",value:123},
+                {name:"广东",value:80}
             ]
         },
-        setColor(value){
-            let color = ""
-            switch(true){
-                case value == 0:
-                    color = "#fff";
-                    break;
-                case value > 0 && value <10:
-                    color = "#FDFDCF";
-                    break;
-                case value > 10 && value <100:
-                    color = "#FE9E83";
-                    break;
-                case value > 100 && value <500:
-                    color = "#E55A4E";
-                    break;
-            }
-
-            return color;
+        changeCurrentIndex(index){
+            this.currentIndex = index;
         }
     }
 }
@@ -58,15 +54,15 @@ export default {
 #map-container{
     background: #fff;
 }
-#map-container h2{
+#map-container>h2{
     margin-left: 20px;
     font-weight: normal;
-    border-left: 3px solid #406fe7;
+    border-left: 5px solid #406fe7;
     padding-left: 5px;
     font-size: 18px;
     color: #696969;
 }
-#map{
+#chinaMap, #worldMap{
     background: #f4f4f4;
     margin-top: 20px;
     width: 100%;

@@ -13,7 +13,11 @@ import echarts from "@/plugins/echarts"
 import "echarts/map/js/china"
 import "echarts/map/js/world"
 
-
+// 引入全局组件
+import MyComponent from "./components/MyComponent"
+import Tabs from "./components/Tabs"
+Vue.use(MyComponent);
+Vue.use(Tabs)
 Vue.use(echarts);
 
 Vue.prototype.$API = API;
