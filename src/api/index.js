@@ -9,11 +9,21 @@ const key2 = {
 }
 
 const api = {
+
+    // 获取疫情信息
     getNcov(){
         return service.get("/ncov/index",{params:key1})
     },
+
+    // 获取中国疫情数据
     getNcovCity(){
         return service.get("/txapi/ncovcity/index",{params:key1});
+    },
+
+
+    // 获取世界疫情数据
+    getNcovWorld(){
+        return service.get('/ncovabroad/index',{params:key1});
     }
 }
 

@@ -19,18 +19,15 @@ export default {
     data(){
         return{
             cityData:[],
-            currentIndex:"1"
+            currentIndex:"1",
+            worldData:[]
         }
     },
     mounted(){
         this.getData();
-        this.$nextTick(()=>{
-            this.$echarts.chinaMap("chinaMap",this.cityData);
-            this.$echarts.worldMap("worldMap");
-        })
     },
     methods:{
-        getData(){
+        async getData(){
             // let res = await this.$API.getNcovCity();
             // console.log(res);
             // 接口暂时无法使用，下面为模拟数据
@@ -41,7 +38,19 @@ export default {
                 {name:"陕西",value:200},
                 {name:"北京",value:123},
                 {name:"广东",value:80}
-            ]
+            ];
+            let res = await this.$API.getNcovWorld();
+            let {code,newslist} = res.data;
+            if(code == 200){
+                this.worldData = newslist.map(item=>{
+                    return {name:item.provinceName,value:item.currentConfirmedCount}
+                });
+
+            }
+
+            this.$echarts.chinaMap("chinaMap", this.cityData);
+            this.$echarts.worldMap("worldMap", this.worldData);
+            
         },
         changeCurrentIndex(index){
             this.currentIndex = index;
@@ -65,7 +74,7 @@ export default {
 #chinaMap, #worldMap{
     background: #f4f4f4;
     margin-top: 20px;
-    width: 100%;
+    width: 375px;
     height: 400px;
 }
 </style>

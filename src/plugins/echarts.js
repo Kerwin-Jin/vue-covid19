@@ -1,5 +1,5 @@
 import echarts from "echarts"
-
+import worldNames from "./worldNames"
 
 // https://github.com/nickiwen/echarts/tree/master/example
 
@@ -88,18 +88,58 @@ export default {
 
                 mapChart.setOption(options);
             },
-            worldMap(id){
+            worldMap(id,data){
                 let dom = document.getElementById(id);
                 let worldChart = echarts.init(dom);
-
                 let options = {
-                    geo:{
-                        map:"world"
+                    tooltip:{
+                        triggerOn:'click',
+                        enterable:true,
+                        formatter(data){
+                            return "<div><p>"+data.name+"<p><p>现存确诊："+data.value+"</p></div>"
+                        }
                     },
+                    visualMap:[{
+                        origin:"vertical",
+                        type:"piecewise",
+                        pieces:[
+                            {min:0,max:10000,color:"#fdfbcc"},
+                            {min:10000,max:50000,color:"#ffa681"},
+                            {min:50000,max:100000,color:"#f2674c"},
+                            {min:100000,max:1000000,color:"#550e0c"},
+                            {min:1000000,max:5000000,color:"#559f9a"},
+                        ]
+                    }],
                     series:[{
+                        name:"世界地图",
                         type:"map",
+                        map:"world",
                         zoom:1.2,
-                        roam:false
+                        roam:true,
+                        label:{
+                            normal:{
+                                show:false,     //控制地图显示名字
+                                textStyle:{
+                                    fontSize:8
+                                }
+                            }
+                        },
+                        itemStyle: {    //配置地图样式
+                            normal: {
+                                areaColor: 'rgba(0,255,236,0)',
+                                borderColor: 'rgba(0,0,0,.2)',
+                            },
+                            emphasis: {
+                                areaColor: 'rgba(255,180,0,0.8)',
+                                shadowOffsetX: 0,
+                                shadowOffsetY: 0,
+                                shadowBlur: 20,
+                                borderWidth: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        },
+                        nameMap:worldNames,
+                        data:data
                     }]
                 }
 
