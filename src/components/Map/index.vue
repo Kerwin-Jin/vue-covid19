@@ -74,7 +74,7 @@ export default {
 #chinaMap, #worldMap{
     background: #f4f4f4;
     margin-top: 20px;
-    width: 375px;
+    width: 100vw;
     height: 400px;
 }
 </style>

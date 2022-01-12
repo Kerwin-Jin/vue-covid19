@@ -1,17 +1,12 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
-    <Tabs :currentIndex="currentIndex" @change="changeCurrentIndex">
-      <TabHeader label="国内疫情" index="1">
-        <div>内容1</div>
-      </TabHeader>
-      <TabHeader label="国外疫情" index="2">
-        <h2>内容2</h2>
-      </TabHeader>
-      <TabHeader label="全球疫情" index="3">
-        <h4>内容3</h4>
-      </TabHeader>
-    </Tabs>
+    <swiper ref="mySwiper" :options="swiperOptions">
+      <swiper-slide>Slide 1</swiper-slide>
+      <swiper-slide>Slide 2</swiper-slide>
+      <swiper-slide>Slide 3</swiper-slide>
+      <swiper-slide>Slide 4</swiper-slide>
+    </swiper>
+    <button style="border:1px solid #0f0;padding:10px;" @click="print">1</button>
   </div>
 </template>
 
@@ -20,13 +15,30 @@ export default {
   name:"About",
   data(){
     return{
-      currentIndex:"1"
+      swiperOptions:{
+        pagination:{
+          el:".swiper-pagination"
+        },
+        on:{
+          slideChangeTransitionEnd(){
+            console.log(this.activeIndex);  //切换结束时，告诉我slide的索引值
+          }
+        }
+      }
     }
   },
-  methods:{
-    changeCurrentIndex(index){
-      this.currentIndex = index;
+  computed:{
+    swiper(){
+      return this.$refs.mySwiper.$swiper;
     }
+  },
+  
+  methods:{
+    print(){
+      this.swiper.slideTo(2,1000,false);
+    }
+
   }
+  
 }
 </script>

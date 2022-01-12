@@ -4,6 +4,7 @@
       <Covid19Info :info="covid19Info"></Covid19Info>
       <CaseNum :num="covid19Info"></CaseNum>
       <Map></Map>
+      <MySwiper/>
   </div>
 </template>
 
@@ -13,6 +14,7 @@ import Header from "@/components/Header"
 import Covid19Info from "@/components/Covid19Info"
 import CaseNum from "@/components/CaseNum"
 import Map from "@/components/Map"
+import MySwiper from"@/components/MySwiper"
 
 export default {
   name: 'Home',
@@ -21,7 +23,7 @@ export default {
       covid19Info:{},
     }
   },
-  components:{Header,Covid19Info,CaseNum,Map},
+  components:{Header,Covid19Info,CaseNum,Map,MySwiper},
   mounted(){
     this.getData();
   },

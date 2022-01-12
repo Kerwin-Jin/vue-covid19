@@ -12,14 +12,16 @@ import echarts from "@/plugins/echarts"
 // 引入echarts的地图文件
 import "echarts/map/js/china"
 import "echarts/map/js/world"
+Vue.use(echarts);
 
 // 引入全局组件
 import MyComponent from "./components/MyComponent"
-import Tabs from "./components/Tabs"
 Vue.use(MyComponent);
-Vue.use(Tabs)
-Vue.use(echarts);
 
+import Tabs from "./components/Tabs"
+Vue.use(Tabs)
+
+// 将API挂载到原型上
 Vue.prototype.$API = API;
 
 Vue.config.productionTip = false
