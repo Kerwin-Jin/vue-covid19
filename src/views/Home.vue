@@ -5,6 +5,7 @@
       <CaseNum :num="covid19Info"></CaseNum>
       <Map></Map>
       <MySwiper/>
+      <Copyright/>
   </div>
 </template>
 
@@ -14,7 +15,8 @@ import Header from "@/components/Header"
 import Covid19Info from "@/components/Covid19Info"
 import CaseNum from "@/components/CaseNum"
 import Map from "@/components/Map"
-import MySwiper from"@/components/MySwiper"
+import MySwiper from "@/components/MySwiper"
+import Copyright from "@/components/Copyright"
 
 export default {
   name: 'Home',
@@ -23,7 +25,7 @@ export default {
       covid19Info:{},
     }
   },
-  components:{Header,Covid19Info,CaseNum,Map,MySwiper},
+  components:{Header,Covid19Info,CaseNum,Map,MySwiper,Copyright},
   mounted(){
     this.getData();
   },
@@ -31,7 +33,6 @@ export default {
     async getData(){
       let res = await this.$API.getNcov();
       let {code,newslist} = res.data;
-      console.log(newslist[0].desc)
       let newsListData = {...newslist[0].desc};
       if(code == 200){
         this.covid19Info = newsListData;
